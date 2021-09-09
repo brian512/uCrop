@@ -102,8 +102,8 @@ public class UCropActivity extends AppCompatActivity {
     private boolean mShowLoader = true;
 
     private UCropView mUCropView;
-    private GestureCropImageView mGestureCropImageView;
-    private OverlayView mOverlayView;
+    protected GestureCropImageView mGestureCropImageView;
+    protected OverlayView mOverlayView;
     private ViewGroup mWrapperStateAspectRatio, mWrapperStateRotate, mWrapperStateScale;
     private ViewGroup mLayoutAspectRatio, mLayoutRotate, mLayoutScale;
     private List<ViewGroup> mCropAspectRatioViews = new ArrayList<>();
@@ -123,7 +123,7 @@ public class UCropActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ucrop_activity_photobox);
+        setContentView(getLayoutId());
 
         final Intent intent = getIntent();
 
@@ -131,6 +131,10 @@ public class UCropActivity extends AppCompatActivity {
         setImageData(intent);
         setInitialState();
         addBlockingView();
+    }
+
+    protected int getLayoutId() {
+        return R.layout.ucrop_activity_photobox;
     }
 
     @Override
@@ -576,12 +580,16 @@ public class UCropActivity extends AppCompatActivity {
         }
     }
 
-    private void resetRotation() {
+    protected void resetScale() {
+        mGestureCropImageView.zoomInImage(1f, 0, 0);
+    }
+
+    protected void resetRotation() {
         mGestureCropImageView.postRotate(-mGestureCropImageView.getCurrentAngle());
         mGestureCropImageView.setImageToWrapCropBounds();
     }
 
-    private void rotateByAngle(int angle) {
+    protected void rotateByAngle(int angle) {
         mGestureCropImageView.postRotate(angle);
         mGestureCropImageView.setImageToWrapCropBounds();
     }

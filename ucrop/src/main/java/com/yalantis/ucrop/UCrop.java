@@ -35,7 +35,7 @@ public class UCrop {
     public static final int RESULT_ERROR = 96;
     public static final int MIN_SIZE = 10;
 
-    private static final String EXTRA_PREFIX = BuildConfig.APPLICATION_ID;
+    private static final String EXTRA_PREFIX = "com.yalantis.ucrop";
 
     public static final String EXTRA_INPUT_URI = EXTRA_PREFIX + ".InputUri";
     public static final String EXTRA_OUTPUT_URI = EXTRA_PREFIX + ".OutputUri";
@@ -317,7 +317,9 @@ public class UCrop {
          * Set one of {@link android.graphics.Bitmap.CompressFormat} that will be used to save resulting Bitmap.
          */
         public void setCompressionFormat(@NonNull Bitmap.CompressFormat format) {
-            mOptionBundle.putString(EXTRA_COMPRESSION_FORMAT_NAME, format.name());
+            if (format != null) {
+                mOptionBundle.putString(EXTRA_COMPRESSION_FORMAT_NAME, format.name());
+            }
         }
 
         /**
